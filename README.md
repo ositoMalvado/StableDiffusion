@@ -1,3 +1,4 @@
+<img src="https://count.getloli.com/get/@:sageMakerOsitoMalvado" alt=":name" /><br>
 # Stable Diffusion notebook par SageMaker
 ### Descripción
 > Este repositorio contiene el archivo .ipynb necesario para poder correr Stable Diffusion en SageMaker de Amazon
