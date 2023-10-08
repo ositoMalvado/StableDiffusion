@@ -46,7 +46,7 @@ Paso 16
 Paso 17
 <img src="https://i.imgur.com/Nw8rebV.png">
 Paso 18
-<img src="https://i.imgur.com/xKWM2Zu.png">
+<img src="https://i.imgur.com/1c9Jvcq.png">
 Paso 19
 <img src="https://i.imgur.com/MrruhWe.png">
 Paso 20
