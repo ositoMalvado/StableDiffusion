@@ -13,9 +13,6 @@ PYTHON="3.10.6"
 conda create --yes --name "$KERNEL_NAME" python="$PYTHON"
 conda activate "$KERNEL_NAME"
 pip install --quiet ipykernel
-
-
-# CONSOLE PARA INICIAR TELEBOT
 cd /home/studio-lab-user
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 source ~/.bashrc
