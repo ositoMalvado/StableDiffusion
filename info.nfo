@@ -1,0 +1,28 @@
+﻿```
+# CONSOLE PARA INSTALAR NPM + PYTHON 3.10.6
+# Install a separate conda installation via Miniconda
+WORKING_DIR=/home/studio-lab-user
+mkdir -p "$WORKING_DIR"
+wget https://repo.anaconda.com/miniconda/Miniconda3-py310_23.5.2-0-Linux-x86_64.sh -O "$WORKING_DIR/miniconda.sh"
+bash "$WORKING_DIR/miniconda.sh" -b -u -p "$WORKING_DIR/miniconda" 
+rm -rf "$WORKING_DIR/miniconda.sh"
+# Create a custom conda environment
+source "$WORKING_DIR/miniconda/bin/activate"
+KERNEL_NAME="a1111"
+PYTHON="3.10.6"
+conda create --yes --name "$KERNEL_NAME" python="$PYTHON"
+conda activate "$KERNEL_NAME"
+pip install --quiet ipykernel
+
+
+# CONSOLE PARA INICIAR TELEBOT
+cd /home/studio-lab-user
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc
+nvm install --lts
+node -e "console.log('Running Node.js ' + process.version)"
+npm install axios
+npm install telebot
+node index.mjs
+
+```
