@@ -1,14 +1,13 @@
-﻿import axios from 'axios';
+﻿﻿import axios from 'axios';
 import TeleBot from 'telebot';
 import limit from 'p-limit';
 
 const GLOBAL_SEND_LIMIT = 1
 const USER_CONFIG = []
 
-const GLOBAL_TOKEN_BOT = "6969179367:AAEqJQU8TPzLb3nWIQhIQUlwaUFStlQoEHQ"
+const GLOBAL_TOKEN_BOT = "6318548166:AAHpw7I4gFc2I8a8KZ4rPnLa8B_bnHXvZ4Y"
 
 // 6537981587:AAHsIt2nWXWyjvGTKrPElYBT0rpMUpArl5c
-// 6318548166:AAHpw7I4gFc2I8a8KZ4rPnLa8B_bnHXvZ4Y
 // 6969179367:AAEqJQU8TPzLb3nWIQhIQUlwaUFStlQoEHQ
 // 6867831283:AAHfs25rq9xMPxFMvBWsCBuMHLiU5P8fLog
 const bot = new TeleBot({
@@ -171,7 +170,7 @@ async function setPayload(msg, button = '') {
             payload[i].adetailer = true
         }
         const modelo = msg.modelos[i];
-        if (modelo.includes('epic') || modelo.includes('rev_anima')) {
+        if (modelo.includes('epic') || modelo.includes('rev_anima') || modelo.includes('am_i_real')) {
             payload[i].prompt += '<lora:lcm-lora-sdv1-5:1>';
             payload[i].steps = 7;
             payload[i].cfg_scale = 1.5;
