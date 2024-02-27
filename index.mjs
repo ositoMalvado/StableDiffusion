@@ -99,7 +99,7 @@ async function hacerRequestModelo(msg) {
             const modelo = response.data[0].model_name;
             let pl
             if (!modelo.includes('vae')) {
-                if (modelo.includes('dreamshaperXL_turboDpmppSDE') || modelo.includes('ultraspiceXLTURBO_v10') || modelo.includes('albedo') || modelo.includes('ultraspiceXLTURBO_v10') || modelo.includes('juggernautXL_v7Rundiffusion'))
+                if (modelo.includes('dreamshaperXL_turboDpmppSDE') || modelo.includes('juggernautXL_v9Rdphoto2Lightning') || modelo.includes('ultraspiceXLTURBO_v10') || modelo.includes('albedo') || modelo.includes('ultraspiceXLTURBO_v10') || modelo.includes('juggernautXL_v7Rundiffusion'))
                     pl = { sd_vae: 'sdxl_vae.safetensors' }
                 else
                     pl = { sd_vae: 'vae-ft-mse-840000-ema-pruned.safetensors' }
@@ -160,7 +160,7 @@ async function setPayload(msg, button = '') {
         let dim = ''
         if (msg.tipo == "photo") {
             const imagen = msg.photo[msg.photo.length - 1]
-            payload[i].prompt = msg.text + '. epiCRealism, <lora:add_detail:0.3>'
+            payload[i].prompt = msg.text
             payload[i].negative_prompt += 'asian, chinese, japanese, korean. bad-hands-5, EasyNegativeV2, epiCNegative'
             payload[i].init_images = await getTelegramImageBuffer(imagen.file_id);
             dim = ajustarDimensionesImagen(imagen.width, imagen.height)
@@ -179,8 +179,11 @@ async function setPayload(msg, button = '') {
                 payload[i].width /= 2;
                 payload[i].height /= 2;
             }
+        } else if (modelo.inclues('juggernautXL_v9Rdphoto2Lightning')){
+            payload[i].steps = 5;
+            payload[i].cfg_scale = 2;
+            payload[i].sampler_name = 'DPM++ SDE';
         } else if (modelo.includes('dreamshaperXL')) {
-            payload[i].prompt += `<lora:add-detail-xl:0.5>`
             payload[i].steps = 7;
             payload[i].cfg_scale = 2;
             payload[i].sampler_name = 'DPM++ SDE Karras';
@@ -193,12 +196,10 @@ async function setPayload(msg, button = '') {
             payload[i].cfg_scale = 2.2;
             payload[i].sampler_name = 'DPM++ SDE Karras';
         } else if (modelo.includes('juggernautXL_v7Rundiffusion')) {
-            payload[i].prompt += ` <lora:xl_more_art-full_v1:0.5> <lora:add-detail-xl:0.5>`
             payload[i].steps = 25;
             payload[i].cfg_scale = 7;
             payload[i].sampler_name = 'DPM++ 2M SDE Karras';
         } else if (modelo.includes('ultraspiceXLTURBO_v10') || modelo.includes('realvisxlV30Turbo')) {
-            payload[i].prompt += ' <lora:xl_more_art-full_v1:1>'
             payload[i].steps = 8;
             payload[i].cfg_scale = 2;
             payload[i].sampler_name = 'DPM++ SDE Karras';
@@ -208,7 +209,6 @@ async function setPayload(msg, button = '') {
             payload[i].cfg_scale = 7;
             payload[i].sampler_name = 'DPM++ 2M Karras';
         } else if (modelo.includes('albedobase_xl')) {
-            payload[i].prompt += '. <lora:SDXLRedGlitter:1>, redglitter, <lora:add-detail-xl:1>'
             payload[i].negative_prompt += '. bad quality, bad anatomy, worst quality, low quality, low resolution, extra fingers, blur, blurry, ugly, wrong proportions, watermark, image artifacts, lowres, ugly, jpeg artifacts, deformed, noisy image, deformation, skin moles'
             payload[i].steps = 50;
             payload[i].cfg_scale = 5;
@@ -225,13 +225,15 @@ async function setPayload(msg, button = '') {
                             {
                                 enabled: true,
                                 module: 'ip-adapter_clip_sdxl_plus_vith', //pre processor
+                                // ip-adapter_clip_sd15  1.5
                                 model: 'ip-adapter-plus-face_sdxl_vit-h', // modelo
-                                weight: 0.8,
+                                // ip-adapter_sd15_vit-G
+                                weight: 0.75,
                                 image: payload[i].init_images[0],
                                 resize_mode: 1,
                                 processor_res: dim.width,
                                 guidance_start: 0.0,
-                                guidance_end: 1,
+                                guidance_end: 0.6,
                             },
                         ],
                     },
